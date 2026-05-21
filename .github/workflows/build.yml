@@ -42,17 +42,17 @@ jobs:
         run: ./build.sh
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: windows-${{ matrix.os.arch }}
-          path: artifacts/*
+          path: artifacts/zstd-${{ matrix.os.arch }}.exe
 
   release:
     needs: [build]
     runs-on: ubuntu-slim
     steps:
       - name: Download
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
 
       - name: Release
         uses: softprops/action-gh-release@v2.3.2
