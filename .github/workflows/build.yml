@@ -60,5 +60,5 @@ jobs:
         with:
           name: zstd for Windows ${{ env.VERSION }}
           tag_name: v${{ env.VERSION }}
-          files: zstd*.exe
+          files: ./zstd*.exe
           make_latest: true
