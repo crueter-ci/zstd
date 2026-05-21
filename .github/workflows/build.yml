@@ -30,10 +30,10 @@ jobs:
       PLATFORM: ${{ matrix.platform }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup MSVC
-        uses: ilammy/msvc-dev-cmd@v1
+        uses: Eden-CI/msvc-dev-cmd@vmaster
         with:
           arch: ${{ matrix.os.arch }}
 
@@ -56,7 +56,7 @@ jobs:
         uses: actions/download-artifact@v8
 
       - name: Release
-        uses: softprops/action-gh-release@v2.3.2
+        uses: softprops/action-gh-release@v3
         with:
           name: zstd for Windows ${{ env.VERSION }}
           tag_name: v${{ env.VERSION }}
