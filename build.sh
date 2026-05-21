@@ -5,11 +5,11 @@
 
 repo=facebook/zstd
 dir="zstd-$VERSION"
-artifact="v$VERSION.tar.gz"
+artifact="v$VERSION.zip"
 url="https://github.com/$repo/archive/$artifact"
 
 [ -f "$artifact" ] || curl -sfLO "$url"
-[ -d "$dir" ] || tar xf "$artifact"
+[ -d "$dir" ] || unzip "$artifact"
 
 rm -rf build
 cmake -S "$dir"/build/cmake -B build -GNinja
