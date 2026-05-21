@@ -44,6 +44,7 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v7
         with:
+          archive: false
           name: windows-${{ matrix.os.arch }}
           path: artifacts/zstd-${{ matrix.os.arch }}.exe
 
