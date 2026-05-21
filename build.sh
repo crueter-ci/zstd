@@ -1,6 +1,7 @@
-#!/bin/sh -e
+#!/bin/sh -ex
 
-VERSION="${VERSION:-1.5.7}"
+: "${VERSION:=1.5.7}"
+: "${ARCH:=amd64}"
 
 repo=facebook/zstd
 dir="zstd-$VERSION"
@@ -16,4 +17,4 @@ cmake --build build
 cmake --install build --prefix install
 
 mkdir -p artifacts
-mv install/bin/zstd artifacts
+mv install/bin/zstd artifacts/zstd-"$ARCH"
