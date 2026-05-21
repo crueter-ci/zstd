@@ -17,4 +17,4 @@ cmake --build build
 cmake --install build --prefix install
 
 mkdir -p artifacts
-mv install/bin/zstd artifacts/zstd-"$ARCH"
+mv install/bin/zstd artifacts/zstd-"$ARCH".exe
