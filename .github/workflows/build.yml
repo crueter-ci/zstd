@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  VERSION: 1.5.7
+
+jobs:
+  build:
+    name: "${{ matrix.platform }} (${{ matrix.os.arch }})"
+    runs-on: ${{ matrix.os.runs-on }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - runs-on: windows-latest
+            arch: amd64
+          - runs-on: windows-11-arm
+            arch: arm64
+        platform: [windows]
+
+    env:
+      ARCH: ${{ matrix.os.arch }}
+      PLATFORM: ${{ matrix.platform }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: ${{ matrix.os.arch }}
+
+      - name: Build
+        shell: bash
+        run: ./build.sh
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-${{ matrix.os.arch }}
+          path: artifacts/*
+
+  release:
+    needs: [build]
+    runs-on: ubuntu-slim
+    steps:
+      - name: Download
+        uses: actions/download-artifact@v4
+
+      - name: Release
+        uses: softprops/action-gh-release@v2.3.2
+        with:
+          name: zstd for Windows ${{ env.VERSION }}
+          tag_name: v${{ env.VERSION }}
+          files: windows-*/*
+          make_latest: true
