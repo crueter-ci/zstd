@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Setup MSVC
-        uses: Eden-CI/msvc-dev-cmd@vmaster
+        uses: Eden-CI/msvc-dev-cmd@master
         with:
           arch: ${{ matrix.os.arch }}
 
